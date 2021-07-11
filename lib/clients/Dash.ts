@@ -3,6 +3,7 @@ import { dash } from "../config.json";
 import { cacheTypes, commandContext } from "../Context";
 import MessageHandler from "../handlers/MessageHandler";
 import loadDashCommands from "../Loaders/DashLoader";
+import StatusManager from "../managers/StatusManager";
 
 export = class Dash extends Client {
     
@@ -18,6 +19,16 @@ export = class Dash extends Client {
         this.startGateway();
         loadDashCommands({ 
             cache: this.caches 
+        });
+        this.on("ready", () => {
+            new StatusManager({
+                name: `Watching ${this.users.size} users`,
+                type: "dnd",
+                run: (type) => {
+                    console.log(`Started dash status ${type}`);
+                    return type;
+                }
+            }, this);
         })
         this.on("messageCreate", this.onMessage);
     }

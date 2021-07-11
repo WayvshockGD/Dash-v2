@@ -3,6 +3,7 @@ import { levelDash } from "../config.json";
 import { cacheTypes } from "../Context";
 import MessageHandler from "../handlers/MessageHandler";
 import LevelDashLoader from "../Loaders/LevelDashLoader";
+import StatusManager from "../managers/StatusManager";
 
 export = class LevelDash extends Eris.Client {
 
@@ -18,6 +19,16 @@ export = class LevelDash extends Eris.Client {
         this.startGateway();
         LevelDashLoader({
             cache: this.caches
+        });
+        this.on("ready", () => {
+            new StatusManager({
+                name: "Watching Levels Piling up",
+                type: "idle",
+                run: (type) => {
+                    console.log(`Started level dash status ${type}`);
+                    return type;
+                }
+            }, this);
         })
         this.on("messageCreate", this.onMessage);
     }

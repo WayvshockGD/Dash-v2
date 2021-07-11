@@ -10,11 +10,13 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/node": "^16.3.1",
+    "@types/node-fetch": "^2.5.11",
     "@types/ws": "^7.4.6",
     "typescript": "^4.3.5"
   },
   "dependencies": {
     "eris": "^0.15.1",
+    "mongoose": "^5.13.2",
     "node-fetch": "^2.6.1"
   }
 }
